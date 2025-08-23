@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,11 +23,22 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int count = 0;
+  // Cria a instância do player de áudio
+  final player = AudioPlayer();
+
+  // Função para reproduzir o som de clique
+  void playClickSound() async {
+    // Define a velocidade de reprodução para 2.0 (duas vezes a velocidade normal)
+    await player.setPlaybackRate(1.5);
+    // O caminho do arquivo de áudio deve ser o mesmo que você colocou no pubspec.yaml
+    await player.play(AssetSource('sounds/click.mp3'));
+  }
 
   void increment() {
     setState(() {
       count++;
     });
+    playClickSound(); // Chama a função para tocar o som
     print(count);
   }
 
@@ -34,6 +46,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       count--;
     });
+    playClickSound(); // Chama a função para tocar o som
     print(count);
   }
 
